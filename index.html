@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>電卓</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+  <input type="text" name="" id="result" readonly="readonly" value="0">
+  <textarea name="" id="basenumber" readonly="readonly"></textarea>
+  <br>
+  <div class="btn">
+  <input type="button" value="C" id="clear" class="operator" onclick="input(this)">
+  <input type="button" value="tax" class="number" onclick="input(this)">
+  <input type="button" value="%" class="number" onclick="input(this)">
+  <input type="button" value="÷" class="operator"onclick="input(this)">
+  <br>
+  <input type="button" value="7" class="number" onclick="input(this)">
+  <input type="button" value="8" class="number" onclick="input(this)">
+  <input type="button" value="9" class="number" onclick="input(this)">
+  <input type="button" value="×" class="operator"onclick="input(this)"> 
+  <br>
+  <input type="button" value="4" class="number" onclick="input(this)">
+  <input type="button" value="5" class="number" onclick="input(this)">
+  <input type="button" value="6" class="number" onclick="input(this)">
+  <input type="button" value="-" class="operator"onclick="input(this)">
+  <br>
+  <input type="button" value="1" class="number" onclick="input(this)">
+  <input type="button" value="2" class="number" onclick="input(this)">
+  <input type="button" value="3" class="number" onclick="input(this)">
+  <input type="button" value="+" class="operator"onclick="input(this)">
+  <br>
+  <input type="button" value="0" class="number" onclick="input(this)">
+  <input type="button" value="00" class="operator"onclick="input(this)">
+  <input type="button" value="." class="number"onclick="input(this)">
+  <input type="button" value="=" class="operator" onclick="calc()">
+  <br>
+  </div>
+  <div class="opecontainer">
+    <input type="button" value="^" class="operator"onclick="input(this)">
+    <input type="button" value="√" class="operator" onclick="input(this)">
+    <input type="button" value="(" class="operator" onclick="input(this)">
+    <input type="button" value=")" class="operator" onclick="input(this)">
+  </div>
+  <p>消費税</p> 
+  <div class="tax">
+            <select id="tax">
+              <option value='10'onclick="tax_value(10)">10%</option>
+              <option value='8' onclick="tax_value(8)">8%</option>
+            </select>
+</div>
+  
+  <!--input type="button"  value="基数変換" onclick="base_number()"-->
+  <script src="./index.js"></script>
+
+</body>
+</html>
