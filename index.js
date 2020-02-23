@@ -63,23 +63,27 @@ function input(num) {
 
     case '√':
       replace_str('√', ' ');
+      if (result.value == ' ') result.value = 0;
       result.value = Math.sqrt(parseInt(result.value));
       break;
 
     case 'sin':
-    replace_str('sin', ' ');
-    result.value = Math.sin(parseInt(result.value)*(Math.PI/180));
-    break;
+      replace_str('sin', ' ');
+      if (result.value == ' ') result.value = 0;
+      result.value = Math.sin(parseInt(result.value) * (Math.PI / 180));
+      break;
 
     case 'cos':
-    replace_str('cos', ' ');
-    result.value = Math.cos(parseInt(result.value)*(Math.PI/180));
-    break;
+      replace_str('cos', ' ');
+      if (result.value == ' ') result.value = 0;
+      result.value = Math.cos(parseInt(result.value) * (Math.PI / 180));
+      break;
 
     case 'tan':
-    replace_str('tan', ' ');
-    result.value = Math.tan(parseInt(result.value)*(Math.PI/180));
-    break;
+      replace_str('tan', ' ');
+      if (result.value == ' ') result.value = 0;
+      result.value = Math.tan(parseInt(result.value) * (Math.PI / 180));
+      break;
   }
 
   change_base_number();
