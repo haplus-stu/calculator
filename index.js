@@ -1,97 +1,85 @@
-'use strict';
-
-let tax = 1.1;
+let l_side = 0;
+let r_side = 0;
+let parsed_l, parsed_r;
+let ope = [];
+let flag = 1; //1...左辺入力状態、2...演算子入力状態、3...右辺入力状態
 let result = document.getElementById('result');
-let bn = document.getElementById('basenumber');
-let number;
 
-function replace_str(b_str, a_str) {
-  result.value = result.value.replace(b_str, a_str);
+function change_other_number(){
+  let bn = document.getElementById("basenumber");
 }
 
-function tax_value(i) {
-  if (i == 8) {
-    tax = 1.08;
-  } else if (i == 10) {
-    tax = 1.1;
-  }
+function replace_str(a, b) {
+  result.value = result.value.replace(a, b);
+}
+//かんたんな四則演算ができるところまでとりあえず実装する。
+
+function set_value(){
+      l_side = result.value;
+      r_side = 0;
+      console.log('l_side :' + l_side, 'r_side :' + r_side, 'ope :' + ope);
 }
 
-function change_base_number() {
-  number = parseInt(result.value);
-  console.log(number);
-  if (Number.isNaN(number) == true) {
-    bn.value = '2進数 :' + '' + '\n' + '16進数 :' + '';
-  } else {
-    bn.value = '2進数 :' + number.toString(2) + '\n' + '16進数 :' + number.toString(16);
-  }
-}
-
+//数字入力判定関数
 function input(num) {
-  if (result.value == '0') {
-    result.value = num.value;
-  } else {
-    result.value = result.value + num.value;
+  
+  if (flag == 1) {
+    replace_str(0, '');
+    l_side = result.value = result.value + num.value;
+    console.log('l_side :' + l_side);
+  } else if (flag == 2) {
+    replace_str(l_side, '');
+    r_side = result.value = result.value + num.value;
+    r_side.trim();
+    console.log('r_side :', r_side);
   }
+  if (num.value == 'C') clear();
+  change_other_number();
+}
 
-  switch (num.value) {
-    case 'tax':
-      replace_str('tax', '*' + tax);
-      calc();
-      break;
-
-    case '%':
-      replace_str('%', '/100');
-      calc();
-      break;
-
-    case '÷':
-      replace_str('÷', '/');
-      break;
-
-    case '×':
-      replace_str('×', '*');
-      break;
-
-    case 'C':
-      result.value = '0';
-      break;
-
-    case '^':
-      replace_str('^', '**');
-      break;
-
-    case '√':
-      replace_str('√', ' ');
-      if (result.value == ' ') result.value = 0;
-      result.value = Math.sqrt(parseInt(result.value));
-      break;
-
-    case 'sin':
-      replace_str('sin', ' ');
-      if (result.value == ' ') result.value = 0;
-      result.value = Math.sin(parseInt(result.value) * (Math.PI / 180));
-      break;
-
-    case 'cos':
-      replace_str('cos', ' ');
-      if (result.value == ' ') result.value = 0;
-      result.value = Math.cos(parseInt(result.value) * (Math.PI / 180));
-      break;
-
-    case 'tan':
-      replace_str('tan', ' ');
-      if (result.value == ' ') result.value = 0;
-      result.value = Math.tan(parseInt(result.value) * (Math.PI / 180));
-      break;
-  }
-
-  change_base_number();
-
-  //console.log(num.value);
+function operator(num) {
+  ope.unshift(num.value); //演算子記憶
+  console.log('ope_length :' + ope.length, 'ope :' + ope, 'l_side :' + l_side, 'r_side :' + r_side);
+  if (l_side != 0 && r_side != 0 && ope.length > 1) calc();
+  flag = 2;
 }
 
 function calc() {
-  result.value = new Function('return ' + result.value)();
-  change_base_number();
+  console.log(ope);
+
+  parsed_l = parseInt(l_side);
+  parsed_r = parseInt(r_side);
+  switch (ope.pop()) {
+    case '+':
+      result.value = parsed_l + parsed_r;
+      set_value();
+      break;
+    case '-':
+      result.value = parsed_l - parsed_r;
+      set_value();
+      break;
+    case '×':
+      result.value = parsed_l * parsed_r;
+      set_value();
+      break;
+    case '÷':
+      result.value = parsed_l / parsed_r;
+      set_value();
+      break;
+    case '^':
+     result.value = parsed_l**parsed_r;
+      set_value();
+     break;
+  }
+}
+
+function clear() {
+  if (l_side != 0 && r_side == 0) {
+    l_side = 0;
+  } else if (l_side != 0 && r_side != 0) {
+    r_side = 0;
+  }
+  flag = 1;
+  result.value = 0;
+  console.log('l_side :' + l_side, 'r_side :' + r_side,'flag :'+flag);
 }
