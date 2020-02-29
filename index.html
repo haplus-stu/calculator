@@ -13,8 +13,8 @@
   <br>
   <div class="btn">
   <input type="button" value="C" id="clear" class="operator" onclick="input(this)">
-  <input type="button" value="tax" class="number" onclick="input(this)">
-  <input type="button" value="%" class="number" onclick="input(this)">
+  <input type="button" value="AC" id="clear" class="operator" onclick="input(this)">
+  <input type="button" value="%" class="number" onclick="operator(this)">
   <input type="button" value="÷" class="operator"onclick="operator(this)">
   <br>
   <input type="button" value="7" class="number" onclick="input(this)">
@@ -40,20 +40,20 @@
   </div>
   <div class="opecontainer">
     <input type="button" value="^" class="operator"onclick="operator(this)">
-    <input type="button" value="√" class="operator" onclick="operator(this)">
+    <!--input type="button" value="√" class="operator" onclick="operator(this)">
     <input type="button" value="(" class="operator" onclick="input(this)">
     <input type="button" value=")" class="operator" onclick="input(this)">
     <input type="button" value="sin" class="operator" onclick="operator(this)">
     <input type="button" value="cos" class="operator" onclick="operator(this)">
     <input type="button" value="tan" class="operator" onclick="operator(this)">  
-  </div>
-  <p>消費税</p>
+  </div-->
+  <!--p>消費税</p>
   <div class="tax">
-            <select id="tax">
-              <option value='10'onclick="tax_value(10)">10%</option>
-              <option value='8' onclick="tax_value(8)">8%</option>
+            <select id="tax" >
+              <option value='10'onclick="need_tax()">10%</option>
+              <option value='8' onclick="need_tax()">8%</option>
             </select>
-</div>
+  </div-->
 
   <!--input type="button"  value="基数変換" onclick="base_number()"-->
   <script src="./index.js"></script>
