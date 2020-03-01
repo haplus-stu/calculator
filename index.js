@@ -13,7 +13,6 @@ function change_other_number() {
 function replace_str(a, b) {
   result.value = result.value.replace(a, b);
 }
-//かんたんな四則演算ができるところまでとりあえず実装する。
 
 function set_value() {
   l_side = result.value;
