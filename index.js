@@ -1,9 +1,9 @@
 let l_side = 0;
 let r_side = 0;
-let tax = 0;
 let parsed_l, parsed_r;
 let ope = [];
 let flag = 1; //1...左辺入力状態、2...演算子入力状態、3...右辺入力状態
+let decimal_point = 0;
 let result = document.getElementById('result');
 let keyname;
 
@@ -29,6 +29,10 @@ function set_value() {
 
 //数字入力判定関数
 function input(num) {
+  if (num.value == '.' && num.value == '') {
+    decimal_point = 1;
+  }
+
   if (result.value == '0') replace_str(0, '');
 
   if (flag == 1) {
@@ -40,8 +44,12 @@ function input(num) {
     r_side.trim();
     //console.log('r_side :', r_side);
   }
+
+  //if (check_sign <= 0) replace_str('', '+/-');
+
   if (num.value == 'C') clear();
   if (num.value == 'AC') all_clear();
+
   change_other_number();
 }
 
@@ -61,8 +69,14 @@ function operator(num) {
 function calc() {
   //console.log(ope);
 
-  parsed_l = parseInt(l_side);
-  parsed_r = parseInt(r_side);
+  if (decimal_point == 1) {
+    parsed_l = parseFloat(l_side);
+    parsed_r = parseFloat(r_side);
+  } else if (decimal_point == 0) {
+    parsed_l = parseInt(l_side);
+    parsed_r = parseInt(r_side);
+  }
+
   switch (ope.pop()) {
     case '+':
       result.value = parsed_l + parsed_r;
