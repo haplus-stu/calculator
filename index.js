@@ -5,9 +5,16 @@ let parsed_l, parsed_r;
 let ope = [];
 let flag = 1; //1...左辺入力状態、2...演算子入力状態、3...右辺入力状態
 let result = document.getElementById('result');
+let keyname;
 
 function change_other_number() {
   let bn = document.getElementById('basenumber');
+  bn.value =
+    '2進数 :' +
+    parseInt(result.value).toString(2) +
+    '\n' +
+    '16進数 :' +
+    parseInt(result.value).toString(16);
 }
 
 function replace_str(a, b) {
@@ -22,7 +29,7 @@ function set_value() {
 
 //数字入力判定関数
 function input(num) {
-  if (flag == 1 && result.value == '0') replace_str(0, '');
+  if (result.value == '0') replace_str(0, '');
 
   if (flag == 1) {
     l_side = result.value = result.value + num.value;
@@ -60,22 +67,27 @@ function calc() {
     case '+':
       result.value = parsed_l + parsed_r;
       set_value();
+      change_other_number();
       break;
     case '-':
       result.value = parsed_l - parsed_r;
       set_value();
+      change_other_number();
       break;
     case '×':
       result.value = parsed_l * parsed_r;
       set_value();
+      change_other_number();
       break;
     case '÷':
       result.value = parsed_l / parsed_r;
       set_value();
+      change_other_number();
       break;
     case '^':
       result.value = parsed_l ** parsed_r;
       set_value();
+      change_other_number();
       break;
     case '%':
       result.value = parsed_l / parsed_r;
@@ -85,14 +97,14 @@ function calc() {
 }
 
 function clear() {
-  if (l_side != 0 && r_side == 0) {
-    l_side = 0;
-  } else if (l_side != 0 && r_side != 0) {
-    r_side = 0;
+  console.log(result.value.length);
+  replace_str('', 'C');
+  if (flag == 1) {
+    l_side = result.value = 0;
+  } else if (flag == 2) {
+    r_side = result.value = 0;
   }
-  flag = 1;
-  result.value = 0;
-  //console.log('l_side :' + l_side, 'r_side :' + r_side, 'flag :' + flag);
+  if (result.value == '') result.value = 0;
 }
 
 function all_clear() {
