@@ -1,8 +1,14 @@
+'use strict';
+//フラッグの状態
+const FLAG_L_SIDE = 1;
+const FLAG_OPERATOR = 2;
+const FLAG_R_SIDE = 3;
+
 let l_side = 0;
 let r_side = 0;
 let parsed_l, parsed_r;
 let ope = [];
-let flag = 1; //1...左辺入力状態、2...演算子入力状態、3...右辺入力状態
+let flag = FLAG_L_SIDE; //1...左辺入力状態、2...演算子入力状態、3...右辺入力状態
 let decimal_point = 0;
 let d_0 = 0;
 let result = document.getElementById('result');
@@ -38,10 +44,10 @@ function input(num) {
 
   if (result.value == '0' && d_0 == 0) replace_str(0, '');
 
-  if (flag == 1) {
+  if (flag == FLAG_L_SIDE) {
     l_side = result.value = result.value + num.value;
     //console.log('l_side :' + l_side);
-  } else if (flag == 2) {
+  } else if (flag == FLAG_OPERATOR) {
     replace_str(l_side, '');
     r_side = result.value = result.value + num.value;
     r_side.trim();
@@ -66,7 +72,7 @@ function operator(num) {
   }
 
   if (l_side != 0 && r_side != 0 && ope.length > 1) calc();
-  flag = 2;
+  flag = FLAG_OPERATOR;
 }
 
 function calc() {
@@ -116,10 +122,10 @@ function calc() {
 function clear() {
   console.log(result.value.length);
   replace_str('', 'C');
-  if (flag == 1) {
+  if (flag == FLAG_L_SIDE) {
     l_side = result.value = 0;
     d_0 = 0;
-  } else if (flag == 2) {
+  } else if (flag == FLAG_OPERATOR) {
     r_side = result.value = 0;
     d_0 = 0;
   }
