@@ -4,6 +4,7 @@ let parsed_l, parsed_r;
 let ope = [];
 let flag = 1; //1...左辺入力状態、2...演算子入力状態、3...右辺入力状態
 let decimal_point = 0;
+let d_0 = 0;
 let result = document.getElementById('result');
 let keyname;
 
@@ -24,16 +25,18 @@ function replace_str(a, b) {
 function set_value() {
   l_side = result.value;
   r_side = 0;
+  d_0 = 0;
   //console.log('l_side :' + l_side, 'r_side :' + r_side, 'ope :' + ope);
 }
 
 //数字入力判定関数
 function input(num) {
-  if (num.value == '.' && num.value == '') {
+  if (num.value == '.') {
     decimal_point = 1;
+    d_0 = 1;
   }
 
-  if (result.value == '0') replace_str(0, '');
+  if (result.value == '0' && d_0 == 0) replace_str(0, '');
 
   if (flag == 1) {
     l_side = result.value = result.value + num.value;
@@ -115,8 +118,10 @@ function clear() {
   replace_str('', 'C');
   if (flag == 1) {
     l_side = result.value = 0;
+    d_0 = 0;
   } else if (flag == 2) {
     r_side = result.value = 0;
+    d_0 = 0;
   }
   if (result.value == '') result.value = 0;
 }
@@ -127,5 +132,6 @@ function all_clear() {
   ope.length = 0;
   flag = 1;
   result.value = 0;
+  d_0 = 0;
   //console.log('l_side :' + l_side, 'r_side :' + r_side, 'flag :' + flag);
 }
